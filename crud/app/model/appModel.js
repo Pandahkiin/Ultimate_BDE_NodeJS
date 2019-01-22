@@ -15,6 +15,7 @@ var Model = function(table, model) {
     if(model.price || model.price == 0) { this.price_participation  = model.price; }
     if(model.id_campus)                 { this.id_Campuses          = model.id_campus; }
     if(model.id_repetition)             { this.id_Repetitions       = model.id_repetition; }
+    this.image = "default path";
   }
   //Goody object constructor
   else if(table == "goodies") {
@@ -43,6 +44,9 @@ Model.getById = function(fields, table, rowId, result, join = "") {
   sql.query("SELECT " + fields + " FROM " + table + " " + join + " WHERE " + table + ".id = ?", rowId, function(err, res) {
     if(err) {
       result(err, null);
+    } else if(res.length == 0) {
+      err = "Not found";
+      result(err, null);
     } else {
       result(null, res);
     }
@@ -52,7 +56,6 @@ Model.getById = function(fields, table, rowId, result, join = "") {
 Model.getAll = function(fields, table, result, join = "") {
   sql.query("SELECT " + fields + " FROM " + table + " " + join, function(err, res) {
     if(err) {
-      console.log(err);
       result(err, null);
     } else {
       result(null, res);
@@ -64,6 +67,9 @@ Model.updateById = function(table, row, id, result) {
   sql.query("UPDATE " + table + " SET ? WHERE id = ?", [row, id], function(err, res) {
     if(err) {
       result(err, null);
+    } else if(res.affectedRows == 0) {
+      err = "Not found";
+      result(err, null);
     } else {
       result(null, res);
     }
@@ -73,6 +79,9 @@ Model.updateById = function(table, row, id, result) {
 Model.removeById = function(table, id, result) {
   sql.query("DELETE FROM " + table + " WHERE id = ?", id, function(err, res) {
     if(err) {
+      result(err, null);
+    } else if(res.affectedRows == 0) {
+      err = "Not found";
       result(err, null);
     } else {
       result(null, res);
