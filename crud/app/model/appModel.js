@@ -20,11 +20,12 @@ var Model = function(table, model) {
   else if(table == "goodies") {
     if(model.name)                                        { this.name           = model.name; }
     if(model.price || model.price == 0)                   { this.price          = model.price; }
-    if(model.description)                                 {this.description     = model.description; }
+    if(model.description)                                 { this.description    = model.description; }
     if(model.stock || model.stock == 0)                   { this.stock          = model.stock; }
     if(model.purchase_order || model.purchase_order == 0) { this.purchase_order = model.purchase_order; }
     if(model.id_category)                                 { this.id_Categories  = model.id_category; }
     if(model.id_campus)                                   { this.id_Campuses    = model.id_campus; }
+    this.image = "default path";
   }
 };
 

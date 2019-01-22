@@ -1,37 +1,39 @@
 'use strict';
 
 module.exports = function(app) {
-  var controller = require('../controller/appController');
+  var campusesController  = require('../controller/campusesController');
+  var eventsController    = require('../controller/eventsController');
+  var goodiesController   = require('../controller/goodiesController');
 
   //campuses Routes
   app.route('/campuses')
-    .get(controller.list_all_campuses)
-    .post(controller.create_a_campus);
+    .get(campusesController.list_all_campuses)
+    .post(campusesController.create_a_campus);
 
   app.route('/campuses/:campusId')
-    .get(controller.read_a_campus)
-    .put(controller.update_a_campus)
-    .delete(controller.delete_a_campus);
+    .get(campusesController.read_a_campus)
+    .put(campusesController.update_a_campus)
+    .delete(campusesController.delete_a_campus);
 
 
   //events Routes
   app.route('/events')
-    .get(controller.list_all_events)
-    .post(controller.create_an_event);
+    .get(eventsController.list_all_events)
+    .post(eventsController.create_an_event);
 
   app.route('/events/:eventId')
-    .get(controller.read_an_event)
-    .put(controller.update_an_event)
-    .delete(controller.delete_an_event);
+    .get(eventsController.read_an_event)
+    .put(eventsController.update_an_event)
+    .delete(eventsController.delete_an_event);
 
 
   //goodies Routes
-  /*app.route('/goodies')
-    .get(controller.list_all_goodies)
-    .post(controller.create_a_goody);
+  app.route('/goodies')
+    .get(goodiesController.list_all_goodies)
+    .post(goodiesController.create_a_goody);
 
   app.route('/goodies/:goodyId')
-    .get(controller.read_a_goody)
-    .put(controller.update_a_goody)
-    .delete(controller.delete_a_goody);*/
+    .get(goodiesController.read_a_goody)
+    .put(goodiesController.update_a_goody)
+    .delete(goodiesController.delete_a_goody);
 };
