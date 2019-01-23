@@ -13,20 +13,22 @@ var Model = function(table, model) {
     if(model.description)               { this.description          = model.description; }
     if(model.date)                      { this.date                 = model.date; }
     if(model.price || model.price == 0) { this.price_participation  = model.price; }
+    if(model.id_user)                   { this.id_Users             = model.id_user; }
     if(model.id_campus)                 { this.id_Campuses          = model.id_campus; }
     if(model.id_repetition)             { this.id_Repetitions       = model.id_repetition; }
-    this.image = "default path";
+    if(model.id_approbation)            { this.id_Approbations      = model.id_approbation; }
+    if(model.image)                     { this.image                = model.image } else { this.image = "default path"; }
   }
   //Goody object constructor
   else if(table == "goodies") {
-    if(model.name)                                        { this.name           = model.name; }
-    if(model.price || model.price == 0)                   { this.price          = model.price; }
-    if(model.description)                                 { this.description    = model.description; }
-    if(model.stock || model.stock == 0)                   { this.stock          = model.stock; }
-    if(model.purchase_order || model.purchase_order == 0) { this.purchase_order = model.purchase_order; }
-    if(model.id_category)                                 { this.id_Categories  = model.id_category; }
-    if(model.id_campus)                                   { this.id_Campuses    = model.id_campus; }
-    this.image = "default path";
+    if(model.name)                      { this.name           = model.name; }
+    if(model.price || model.price == 0) { this.price          = model.price; }
+    if(model.description)               { this.description    = model.description; }
+    if(model.stock || model.stock == 0) { this.stock          = model.stock; }
+    if(model.total_orders)              { this.total_orders   = model.total_orders; }
+    if(model.id_category)               { this.id_Categories  = model.id_category; }
+    if(model.id_campus)                 { this.id_Campuses    = model.id_campus; }
+    if(model.image)                     { this.image          = model.image; }
   }
 };
 
