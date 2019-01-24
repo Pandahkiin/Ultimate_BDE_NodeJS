@@ -5,12 +5,15 @@ var sql = require('../model/db.users_data');
 var verifyToken = function (req, res, next) {
   let token = req.headers['x-access-token'];
 
-  if(!!token) {
+  if(!token || 0 === token.length || "null" === token) {
     res.status(403).send({ auth : false, message : "No token provided (< x-access-token > header empty)" });
   } else {
     sql.query("SELECT id FROM users WHERE token = ?", token, function(err, result) {
+      console.log(result);
       if(err) {
-        res.status(500).send({ auth : false, message : "This token is unknow" });
+        res.status(500).send({ auth : false, message : "Fail to Authentication. Error -> " + err });
+      } else if(result.length === 0) {
+        res.status(403).send({ auth : false, message : "This token is unknow" });
       } else {
         req.userId = result[0].id;
         next();
