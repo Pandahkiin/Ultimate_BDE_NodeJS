@@ -5,7 +5,7 @@ var sql = require('../model/db.users_data');
 var verifyToken = function (req, res, next) {
   let token = req.headers['x-access-token'];
 
-  if(!!!token) {
+  if(!!token) {
     res.status(403).send({ auth : false, message : "No token provided (< x-access-token > header empty)" });
   } else {
     sql.query("SELECT id FROM users WHERE token = ?", token, function(err, result) {
