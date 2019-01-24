@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 8000;
+const ip = '127.0.0.1';
+const port = process.env.PORT || 3000;
 
-app.listen(port);
+app.listen(port, ip);
 
-console.log('API server started on: ' + port);
+console.log('API server started on: ' + ip + ':' + port);
 
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
