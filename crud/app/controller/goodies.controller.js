@@ -17,7 +17,7 @@ exports.create_a_goody = function(req, res) {
 
   //handles null error
   if(!newGoody.name || (!newGoody.price && newGoody.price != 0) || !newGoody.description || (!newGoody.stock && newGoody.stock != 0) ||  !newGoody.id_Categories || !newGoody.id_Campuses) {
-    response.nullEntry(res, "Please provide name, price, description, stock, id_category and id_campus (optional : image and total_orders)" );
+    response.nullEntry(res, "Renseignez les champs : name, price, description, stock, id_category and id_campus (optional : image and total_orders)" );
   } else {
     Model.create(goodiesTable, newGoody, function(err, goody) {
       response.create(res, err, goody);
@@ -37,7 +37,7 @@ exports.update_a_goody = function(req, res) {
 
   //handles null error
   if(!row.name && (!row.price && row.price != 0) && !row.description && (!row.stock && row.stock != 0) && (!row.total_orders && row.total_orders != 0) && !row.id_Categories && !row.id_Campuses &&!row.image) {
-    response.nullEntry(res, "Please provide name, price, description, stock, total_orders, id_category, id_campus and/or image" );
+    response.nullEntry(res, "Renseignez les champs : name, price, description, stock, total_orders, id_category, id_campus and/or image" );
   } else {
     Model.updateById(goodiesTable, row, req.params.goodyId, function(err, goody) {
       response.byId(res, err, goody);

@@ -16,7 +16,7 @@ exports.create_a_campus = function(req, res) {
 
   //handles null error
   if(!newCampus.location) {
-    response.nullEntry(res, "Please provide location");
+    response.nullEntry(res, "Renseignez le champ location");
   } else {
     Model.create(campusesTable, newCampus, function(err, campus) {
       response.create(res, err, campus);
@@ -35,7 +35,7 @@ exports.update_a_campus = function(req, res) {
 
   //handles null error
   if(!row.location) {
-    response.nullEntry(res, "Please provide location");
+    response.nullEntry(res, "Renseignez le champ location");
   } else {
     Model.updateById(campusesTable, row, req.params.campusId, function(err, campus) {
       response.byId(res, err, campus);

@@ -17,7 +17,7 @@ exports.create_an_event = function(req, res) {
 
   //handles null error
   if(!newEvent.name || !newEvent.description || !newEvent.image || !newEvent.date || (!newEvent.price_participation && newEvent.price_participation != 0) || !newEvent.id_Users || !newEvent.id_Campuses || !newEvent.id_Repetitions) {
-    response.nullEntry(res, "Please provide name, description, image, date (yyyy/mm/dd), price, id_user, id_campus and id_repetition");
+    response.nullEntry(res, "Renseignez les champs : name, description, image, date (yyyy/mm/dd), price, id_user, id_campus and id_repetition");
   } else {
     Model.create(eventsTable, newEvent, function(err, event) {
       response.create(res, err, event);
@@ -38,7 +38,7 @@ exports.update_an_event = function(req, res) {
 
   //handles null error
   if(!row.name && !row.description && !row.image && !row.date && (!row.price_participation && row.price_participation != 0) && !row.id_Users && !row.id_Campuses && !row.id_Repetitions && !row.id_Approbations) {
-    response.nullEntry(res, "Please provide name, description, image, date (yyyy/mm/dd), price, id_user, id_campus, id_repetition and/or id_approbation");
+    response.nullEntry(res, "Renseignez les champs : name, description, image, date (yyyy/mm/dd), price, id_user, id_campus, id_repetition and/or id_approbation");
   } else {
     Model.updateById(eventsTable, row, req.params.eventId, function(err, event) {
       response.byId(res, err, event);
