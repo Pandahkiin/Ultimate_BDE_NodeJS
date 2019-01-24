@@ -1,8 +1,5 @@
 'use strict';
 
-const jwt     = require('jsonwebtoken');
-const config  = require("../config/config");
-
 var sql = require('../model/db.users_data');
 
 var verifyToken = function (req, res, next) {
@@ -11,11 +8,11 @@ var verifyToken = function (req, res, next) {
   if(!!token) {
     res.status(403).send({ auth : false, message : "No token provided (< x-access-token > header empty)" });
   } else {
-    jwt.verify(token, config.secret, function(err, decoded) {
+    sql.query("SELECT id FROM users WHERE remember_token = ?", token, function(err, result) {
       if(err) {
-        res.status(500).send({ auth : false, message : "Fail to Authentication. Error -> " + err });
+        res.status(500).send({ auth : false, message : "This token is unknow" });
       } else {
-        req.userId = decoded.id;
+        req.userId = result[0].id;
         next();
       }
     });
