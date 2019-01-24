@@ -11,7 +11,7 @@ console.log('API server started on: ' + ip + ':' + port);
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "127.0.0.1:3000");
+  res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000/api/*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
   next();
 });
