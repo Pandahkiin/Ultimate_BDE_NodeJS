@@ -17,7 +17,7 @@ exports.create_a_goody = function(req, res) {
 
   //handles null error
   if(!newGoody.name || (!newGoody.price && newGoody.price != 0) || !newGoody.description || (!newGoody.stock && newGoody.stock != 0) ||  !newGoody.id_Categories || !newGoody.id_Campuses) {
-    response.nullEntry(res, "Please provide name, price, description, stock, id_category and id_campus (optional : total_orders)" );
+    response.nullEntry(res, "Please provide name, price, description, stock, id_category and id_campus (optional : image and total_orders)" );
   } else {
     Model.create(goodiesTable, newGoody, function(err, goody) {
       response.create(res, err, goody);

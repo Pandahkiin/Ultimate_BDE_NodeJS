@@ -16,8 +16,8 @@ exports.create_an_event = function(req, res) {
   var newEvent = new Model(eventsTable, req.body);
 
   //handles null error
-  if(!newEvent.name || !newEvent.description || !newEvent.date || (!newEvent.price_participation && newEvent.price_participation != 0) || !newEvent.id_Users || !newEvent.id_Campuses || !newEvent.id_Repetitions) {
-    response.nullEntry(res, "Please provide name, description, date (yyyy/mm/dd), price, id_user, id_campus and id_repetition");
+  if(!newEvent.name || !newEvent.description || !newEvent.image || !newEvent.date || (!newEvent.price_participation && newEvent.price_participation != 0) || !newEvent.id_Users || !newEvent.id_Campuses || !newEvent.id_Repetitions) {
+    response.nullEntry(res, "Please provide name, description, image, date (yyyy/mm/dd), price, id_user, id_campus and id_repetition");
   } else {
     Model.create(eventsTable, newEvent, function(err, event) {
       response.create(res, err, event);
@@ -37,8 +37,8 @@ exports.update_an_event = function(req, res) {
   if(row.image == "default path") { delete(row.image); }
 
   //handles null error
-  if(!row.name && !row.description && !row.date && (!row.price_participation && row.price_participation != 0) && !row.id_Users && !row.id_Campuses && !row.id_Repetitions && !row.id_Approbations && !row.image) {
-    response.nullEntry(res, "Please provide name, description, date (yyyy/mm/dd), price, id_user, id_campus, id_repetition, id_approbation and/or image");
+  if(!row.name && !row.description && !row.image && !row.date && (!row.price_participation && row.price_participation != 0) && !row.id_Users && !row.id_Campuses && !row.id_Repetitions && !row.id_Approbations) {
+    response.nullEntry(res, "Please provide name, description, image, date (yyyy/mm/dd), price, id_user, id_campus, id_repetition and/or id_approbation");
   } else {
     Model.updateById(eventsTable, row, req.params.eventId, function(err, event) {
       response.byId(res, err, event);

@@ -11,13 +11,13 @@ var Model = function(table, model) {
   else if(table == "events") {
     if(model.name)                      { this.name                 = model.name; }
     if(model.description)               { this.description          = model.description; }
+    if(model.image)                     { this.image                = model.image }
     if(model.date)                      { this.date                 = model.date; }
     if(model.price || model.price == 0) { this.price_participation  = model.price; }
     if(model.id_user)                   { this.id_Users             = model.id_user; }
     if(model.id_campus)                 { this.id_Campuses          = model.id_campus; }
     if(model.id_repetition)             { this.id_Repetitions       = model.id_repetition; }
     if(model.id_approbation)            { this.id_Approbations      = model.id_approbation; }
-    if(model.image)                     { this.image                = model.image } else { this.image = "default path"; }
   }
   //Goody object constructor
   else if(table == "goodies") {
