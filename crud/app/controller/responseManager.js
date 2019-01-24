@@ -1,12 +1,16 @@
 'use strict';
 
-function created(res, result) { res.status(201).send({ id : result, message : "Enregistrement créé" }); }
+function created(res, result) { res.status(201).send({ id : result, message : "Row successefully created" }); }
 function ok(res, result)      { res.send(result); }
 function badRequest(res, err) { res.status(400).send(err); }
-function notFound(res)        { res.status(404).send({ code : "ER_ID_NOT_FOUND", message : "Cet id n'existe pas" }); }
+function notFound(res)        { res.status(404).send({ code : "ER_ID_NOT_FOUND", message : "This ID doesn't exist" }); }
 
 exports.nullEntry = function(res, result) {
   res.status(400).send({ code : "ER_NULL_ENTRY", message : result });
+}
+
+exports.userNotFound = function(res) {
+  res.status(404).send({ code : "ER_USER_NOT_FOUND", message : "Email not found, please provide another one" });
 }
 
 exports.getAll = function(res, err, result) {

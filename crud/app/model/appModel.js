@@ -1,6 +1,6 @@
 'use strict';
 
-var sql = require('./db');
+var sql = require('./db.site_data');
 
 var Model = function(table, model) {
   //Campus object constructor
