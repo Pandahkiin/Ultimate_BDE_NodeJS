@@ -9,37 +9,37 @@ module.exports = function(app) {
   var goodiesController   = require('../controller/goodies.controller');
 
   //authentication Route
-  app.route('/auth/signin').post(authController.signin);
+  app.route('/api/auth/signin').post(authController.signin);
 
 
   //campuses Routes
-  app.route('/campuses')
+  app.route('/api/campuses')
     .get([authJwt.verifyToken], campusesController.list_all_campuses)
     .post([authJwt.verifyToken, authJwt.isBdeMember], campusesController.create_a_campus);
 
-  app.route('/campuses/:campusId')
+  app.route('/api/campuses/:campusId')
     .get([authJwt.verifyToken], campusesController.read_a_campus)
     .put([authJwt.verifyToken, authJwt.isBdeMember], campusesController.update_a_campus)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], campusesController.delete_a_campus);
 
 
   //events Routes
-  app.route('/events')
+  app.route('/api/events')
     .get([authJwt.verifyToken], eventsController.list_all_events)
     .post([authJwt.verifyToken, authJwt.isBdeMember], eventsController.create_an_event);
 
-  app.route('/events/:eventId')
+  app.route('/api/events/:eventId')
     .get([authJwt.verifyToken], eventsController.read_an_event)
     .put([authJwt.verifyToken, authJwt.isBdeMember], eventsController.update_an_event)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], eventsController.delete_an_event);
 
 
   //goodies Routes
-  app.route('/goodies')
+  app.route('/api/goodies')
     .get([authJwt.verifyToken], goodiesController.list_all_goodies)
     .post([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.create_a_goody);
 
-  app.route('/goodies/:goodyId')
+  app.route('/api/goodies/:goodyId')
     .get([authJwt.verifyToken], goodiesController.read_a_goody)
     .put([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.update_a_goody)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.delete_a_goody);
