@@ -2,7 +2,7 @@
 
 function created(res, result) { 0 === result ? res.status(201).send({message : "Enregistrement correctement créé", status : "success" }) : res.status(201).send({ id : result, message : "Enregistrement correctement créé", status : "success" }); }
 function ok(res, result)      { res.status(200).send({ result, message : "Requête effectuée", status : "success" }); }
-function badRequest(res, err) { res.status(400).send({ err, message : "La requête est erronée", status : "warning" }); }
+function badRequest(res, err) { res.status(400).send({ err, message : "Un problème a eu lieu, réessayez plus tard", status : "warning" }); }
 function notFound(res)        { res.status(404).send({ code : "ER_ID_NOT_FOUND", message : "Cet ID n'existe pas", status : "warning" }); }
 
 exports.nullEntry = function(res, result) {
