@@ -3,10 +3,14 @@
 const authJwt = require("./verifyJwtToken");
 
 module.exports = function(app) {
+  var authController      = require('../controller/authentication.controller');
   var campusesController  = require('../controller/campuses.controller');
   var eventsController    = require('../controller/events.controller');
   var goodiesController   = require('../controller/goodies.controller');
   var registersController = require('../controller/registers.controller');
+
+  //authentication Routes
+  app.route('/api/auth/signin').post(authController.signin);
 
   //campuses Routes
   app.route('/api/campuses')

@@ -8,13 +8,11 @@ var verifyToken = function (req, res, next) {
   if(!token || 0 === token.length || "null" === token) {
     res.status(403).send({ auth : false, message : "Aucun token n'a été renseigné (le header < x-access-token > est vide)", status : "warning" });
   } else {
-    sql.query("SELECT id FROM users WHERE token = ?", token, function(err, result) {
+    jwt.verify(token, config.secret, function(err, decoded) {
       if(err) {
-        res.status(500).send({ auth : false, message : "Échec d'authentification; Erreur -> " + err, status : "warning" });
-      } else if(result.length === 0) {
-        res.status(403).send({ auth : false, message : "Ce token est inconnu", status : "danger" });
+        res.status(500).send({ auth : false, message : "Échec d'authentification. Erreur -> " + err, status : "warning" });
       } else {
-        req.userId = result[0].id;
+        req.userId = decoded.id;
         next();
       }
     });

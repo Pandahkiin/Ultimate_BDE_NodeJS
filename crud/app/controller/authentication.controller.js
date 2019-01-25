@@ -17,7 +17,7 @@ exports.signin = function (req, res) {
     sql.query("SELECT id, email, password FROM users WHERE email = ?", email, function(err, result) {
       if(err) {
         res.status(500).send(err);
-      } else if(result.length == 0) {
+      } else if(result.length === 0) {
         response.userNotFound(res);
       } else {
         let password = req.body.password;
