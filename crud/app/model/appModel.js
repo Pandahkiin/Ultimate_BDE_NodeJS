@@ -4,11 +4,11 @@ var sql = require('./db.site_data');
 
 var Model = function(table, model) {
   //Campus object constructor
-  if(table == "campuses") {
+  if(table === "campuses") {
     this.location = model.location;
   }
   //Event object constructor
-  else if(table == "events") {
+  else if(table === "events") {
     if(model.name)                      { this.name                 = model.name; }
     if(model.description)               { this.description          = model.description; }
     if(model.image)                     { this.image                = model.image }
@@ -20,7 +20,7 @@ var Model = function(table, model) {
     if(model.id_approbation)            { this.id_Approbations      = model.id_approbation; }
   }
   //Goody object constructor
-  else if(table == "goodies") {
+  else if(table === "goodies") {
     if(model.name)                      { this.name           = model.name; }
     if(model.price || model.price == 0) { this.price          = model.price; }
     if(model.description)               { this.description    = model.description; }
@@ -29,6 +29,11 @@ var Model = function(table, model) {
     if(model.id_category)               { this.id_Categories  = model.id_category; }
     if(model.id_campus)                 { this.id_Campuses    = model.id_campus; }
     if(model.image)                     { this.image          = model.image; }
+  }
+  //Register object constructor
+  else if(table === "registers") {
+    this.id_Users   = model.id_user;
+    this.id_Events  = model.id_event;
   }
 };
 

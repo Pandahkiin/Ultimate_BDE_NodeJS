@@ -6,6 +6,7 @@ module.exports = function(app) {
   var campusesController  = require('../controller/campuses.controller');
   var eventsController    = require('../controller/events.controller');
   var goodiesController   = require('../controller/goodies.controller');
+  var registersController = require('../controller/registers.controller');
 
   //campuses Routes
   app.route('/api/campuses')
@@ -38,4 +39,7 @@ module.exports = function(app) {
     .get(goodiesController.read_a_goody)
     .put([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.update_a_goody)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.delete_a_goody);
+
+  //registers Routes
+  app.route('/api/registers').post([authJwt.verifyToken, authJwt.isBdeMember], registersController.create_a_register);
 };
