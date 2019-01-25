@@ -26,7 +26,7 @@ module.exports = function(app) {
   //events Routes
   app.route('/api/events')
     .get([authJwt.verifyToken], eventsController.list_all_events)
-    .post([authJwt.verifyToken, authJwt.isBdeMember], eventsController.create_an_event);
+    .post([authJwt.verifyToken], eventsController.create_an_event);
 
   app.route('/api/events/:eventId')
     .get([authJwt.verifyToken], eventsController.read_an_event)

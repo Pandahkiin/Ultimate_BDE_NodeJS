@@ -29,7 +29,7 @@ var isBdeMember = function(req, res, next) {
     if(result[0].name == "Membre BDE") {
       next();
     } else {
-      res.status(403).send({ message : "Requiert le rôle < Membre BDE >", status : "danger" })
+      res.status(403).send({ message : "Requiert le rôle < Membre BDE >", status : "danger" });
     }
   });
 }

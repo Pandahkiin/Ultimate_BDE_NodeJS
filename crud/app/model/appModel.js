@@ -109,4 +109,14 @@ Model.removeByIds = function(table, id_user, id_event, result) {
   });
 };
 
+Model.getRole = function(id, result) {
+  sql.query("SELECT users_data.roles.name FROM site_data.events events INNER JOIN users_data.users users ON events.id_Users = users.id INNER JOIN users_data.roles roles ON users.id_role = roles.id WHERE users.id = ?", id, function(err, res) {
+    if(err) {
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+}
+
 module.exports = Model;

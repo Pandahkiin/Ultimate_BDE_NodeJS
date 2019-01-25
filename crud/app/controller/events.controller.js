@@ -19,8 +19,19 @@ exports.create_an_event = function(req, res) {
   if(!newEvent.name || !newEvent.description || !newEvent.image || !newEvent.date || (!newEvent.price_participation && newEvent.price_participation != 0) || !newEvent.id_Users || !newEvent.id_Campuses || !newEvent.id_Repetitions) {
     response.nullEntry(res, "Renseignez les champs : name, description, image, date (yyyy/mm/dd), price, id_user, id_campus et id_repetition");
   } else {
-    Model.create(table, newEvent, function(err, event) {
-      response.create(res, err, event);
+    Model.getRole(req.userId, function(error, result) {
+      if(error) {
+        error.status(500).send({ error : true, response : null, status : "warning" });
+      } else if(result[0].name === "Membre BDE") {
+        newEvent.id_Approbations = 2;
+        Model.create(table, newEvent, function(err, event) {
+          response.create(res, err, event);
+        });
+      } else {
+        Model.create(table, newEvent, function(err, event) {
+          response.create(res, err, event);
+        });
+      }
     });
   }
 };
