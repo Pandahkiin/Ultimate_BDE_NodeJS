@@ -1,6 +1,8 @@
 'use strict';
 
 const jwt     = require('jsonwebtoken');
+const config  = require("../config/config");
+
 var sql = require('../model/db.users_data');
 
 var verifyToken = function (req, res, next) {
