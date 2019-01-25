@@ -12,7 +12,7 @@ exports.signin = function (req, res) {
 
   //handles null error
   if(!email) {
-    response.nullEntry(res, "Veuillez renseignez votre adresse mail");
+    response.nullEntry(res, "Veuillez renseignez votre adresse mail (champ : email)");
   } else {
     sql.query("SELECT id, email, password FROM users WHERE email = ?", email, function(err, result) {
       if(err) {
@@ -24,7 +24,7 @@ exports.signin = function (req, res) {
 
         //handles null error
         if(!password) {
-          response.nullEntry(res, "Veuillez renseignez votre mot de passe");
+          response.nullEntry(res, "Veuillez renseignez votre mot de passe (champ : password)");
         } else {
           var passwordIsValid = bcrypt.compareSync(password, result[0].password);
           if(!passwordIsValid && password != result[0].password) {
