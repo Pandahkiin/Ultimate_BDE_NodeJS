@@ -6,8 +6,8 @@ var response  = require('./responseManager');
 const eventsTable = "events";
 
 exports.list_all_events = function(req, res) {
-  const join = "INNER JOIN campuses ON id_Campuses = campuses.id INNER JOIN repetitions ON id_Repetitions = repetitions.id INNER JOIN approbations ON id_Approbations = approbations.id";
-  Model.getAll(eventsTable + ".id, name, description, date, price_participation, location, repetition, approbation", eventsTable, function(err, event) {
+  const join = "INNER JOIN campuses ON id_Campuses = campuses.id INNER JOIN repetitions ON id_Repetitions = repetitions.id INNER JOIN approbations ON id_Approbations = approbations.id INNER JOIN users_data.users users ON id_Users = users.id";
+  Model.getAll(eventsTable + ".id, name, description, image, date, price_participation, firstname, lastname, location, repetition, approbation", eventsTable, function(err, event) {
     response.getAll(res, err, event);
   }, join);
 };
@@ -26,8 +26,8 @@ exports.create_an_event = function(req, res) {
 };
 
 exports.read_an_event = function(req, res) {
-  const join = "INNER JOIN campuses ON id_Campuses = campuses.id INNER JOIN repetitions ON id_Repetitions = repetitions.id INNER JOIN approbations ON id_Approbations = approbations.id";
-  Model.getById("name, description, date, price_participation, location, repetition, approbation", eventsTable, req.params.eventId, function(err, event) {
+  const join = "INNER JOIN campuses ON id_Campuses = campuses.id INNER JOIN repetitions ON id_Repetitions = repetitions.id INNER JOIN approbations ON id_Approbations = approbations.id INNER JOIN users_data.users users ON id_Users = users.id";
+  Model.getById("name, description, image, date, price_participation, firstname, lastname, location, repetition, approbation", eventsTable, req.params.eventId, function(err, event) {
     response.byId(res, err, event);
   }, join);
 };

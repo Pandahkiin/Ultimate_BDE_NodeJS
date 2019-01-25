@@ -6,8 +6,8 @@ var response  = require('./responseManager');
 const goodiesTable = "goodies";
 
 exports.list_all_goodies = function(req, res) {
-  const join = "INNER JOIN campuses ON id_Campuses = campuses.id";
-  Model.getAll(goodiesTable + ".id, " + goodiesTable + ".name, price, description, stock, total_orders, location", goodiesTable, function(err, goody) {
+  const join = "INNER JOIN campuses ON id_Campuses = campuses.id INNER JOIN categories ON id_Categories = categories.id";
+  Model.getAll(goodiesTable + ".id, " + goodiesTable + ".name, price, description, image, stock, total_orders, category, location", goodiesTable, function(err, goody) {
     response.getAll(res, err, goody);
   }, join);
 };
@@ -26,8 +26,8 @@ exports.create_a_goody = function(req, res) {
 };
 
 exports.read_a_goody = function(req, res) {
-  const join = "INNER JOIN campuses ON id_Campuses = campuses.id";
-  Model.getById(goodiesTable + ".name, price, description, stock, total_orders, location", goodiesTable, req.params.goodyId, function(err, goody) {
+  const join = "INNER JOIN campuses ON id_Campuses = campuses.id INNER JOIN categories ON id_Categories = categories.id";
+  Model.getById(goodiesTable + ".name, price, description, image, stock, total_orders, category, location", goodiesTable, req.params.goodyId, function(err, goody) {
     response.byId(res, err, goody);
   }, join);
 };
