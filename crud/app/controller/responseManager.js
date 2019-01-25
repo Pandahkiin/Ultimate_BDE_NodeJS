@@ -10,7 +10,7 @@ exports.nullEntry = function(res, result) {
 }
 
 exports.userNotFound = function(res) {
-  res.status(404).send({ code : "ER_USER_NOT_FOUND", message : "Email not found, please provide another one", status : "warning" });
+  res.status(404).send({ code : "ER_USER_NOT_FOUND", message : "Votre addresse mail n'est pas reconnue", status : "warning" });
 }
 
 exports.getAll = function(res, err, result) {
