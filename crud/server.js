@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const ip = '127.0.0.1';
 const port = process.env.PORT || 3000;
 
@@ -10,7 +11,7 @@ console.log('API server started on: ' + ip + ':' + port);
 
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
-app.options('*', cors(corsOptions));
+app.options('*', cors());
 app.use(function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8000");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
