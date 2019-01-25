@@ -74,7 +74,7 @@ Model.updateById = function(table, row, id, result) {
   sql.query("UPDATE " + table + " SET ? WHERE id = ?", [row, id], function(err, res) {
     if(err) {
       result(err, null);
-    } else if(res.affectedRows == 0) {
+    } else if(res.affectedRows === 0) {
       err = "Not found";
       result(err, null);
     } else {
@@ -87,7 +87,20 @@ Model.removeById = function(table, id, result) {
   sql.query("DELETE FROM " + table + " WHERE id = ?", id, function(err, res) {
     if(err) {
       result(err, null);
-    } else if(res.affectedRows == 0) {
+    } else if(res.affectedRows === 0) {
+      err = "Not found";
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Model.removeByIds = function(table, id_user, id_event, result) {
+  sql.query("DELETE FROM " + table + " WHERE id_Users = ? AND id_Events = ?", [id_user, id_event], function(err, res) {
+    if(err) {
+      result(err, null);
+    } else if(res.affectedRows === 0) {
       err = "Not found";
       result(err, null);
     } else {

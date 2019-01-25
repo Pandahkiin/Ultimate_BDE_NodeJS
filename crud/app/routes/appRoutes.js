@@ -47,5 +47,5 @@ module.exports = function(app) {
   //registers Routes
   app.route('/api/registers').post([authJwt.verifyToken], registersController.create_a_register);
 
-  //app.route('/api/users/:userId/events/:eventId').delete([authJwt.verifyToken], registersController.delete_a_register);
+  app.route('/api/users/:userId/events/:eventId').delete([authJwt.verifyToken], registersController.delete_a_register);
 };
