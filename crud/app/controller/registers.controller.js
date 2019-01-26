@@ -19,7 +19,7 @@ exports.create_a_register = function(req, res) {
 };
 
 exports.delete_a_register = function(req, res) {
-  Model.removeByIds(table, req.params.userId, req.params.eventId, function(err, register) {
+  Model.removeByIds(table, "id_Events", req.params.userId, req.params.eventId, function(err, register) {
     response.byId(res, err, register);
   });
 };

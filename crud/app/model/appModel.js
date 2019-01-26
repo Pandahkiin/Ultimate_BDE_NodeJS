@@ -35,6 +35,11 @@ var Model = function(table, model) {
     this.id_Users   = model.id_user;
     this.id_Events  = model.id_event;
   }
+  //Like object constructor
+  else if(table === "likes") {
+    this.id_Users     = model.id_user;
+    this.id_Pictures  = model.id_picture;
+  }
 };
 
 Model.create = function(table, newRow, result) {
@@ -96,8 +101,8 @@ Model.removeById = function(table, id, result) {
   });
 };
 
-Model.removeByIds = function(table, id_user, id_event, result) {
-  sql.query("DELETE FROM " + table + " WHERE id_Users = ? AND id_Events = ?", [id_user, id_event], function(err, res) {
+Model.removeByIds = function(table, id_Name, id_user, id, result) {
+  sql.query("DELETE FROM " + table + " WHERE id_Users = ? AND " + id_Name + " = ?", [id_user, id], function(err, res) {
     if(err) {
       result(err, null);
     } else if(res.affectedRows === 0) {
