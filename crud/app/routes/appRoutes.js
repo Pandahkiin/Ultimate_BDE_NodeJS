@@ -9,6 +9,7 @@ module.exports = function(app) {
   var goodiesController   = require('../controller/goodies.controller');
   var registersController = require('../controller/registers.controller');
   var likesController     = require('../controller/likes.controller');
+  var votesController     = require('../controller/votes.controller');
 
   //authentication Routes
   app.route('/api/auth/signin').post(authController.signin);
@@ -48,10 +49,15 @@ module.exports = function(app) {
   //registers Routes
   app.route('/api/registers').post([authJwt.verifyToken], registersController.create_a_register);
 
-  app.route('/api/users/:userId/events/:eventId').delete([authJwt.verifyToken], registersController.delete_a_register);
+  app.route('/api/registers/users/:userId/events/:eventId').delete([authJwt.verifyToken], registersController.delete_a_register);
 
   //likes Routes
   app.route('/api/likes').post([authJwt.verifyToken], likesController.create_a_like);
 
-  app.route('/api/users/:userId/pictures/:pictureId').delete([authJwt.verifyToken], likesController.delete_a_like);
+  app.route('/api/likes/users/:userId/pictures/:pictureId').delete([authJwt.verifyToken], likesController.delete_a_like);
+
+  //votes Routes
+  app.route('/api/votes').post([authJwt.verifyToken], votesController.create_a_vote);
+
+  app.route('/api/votes/users/:userId/events/:eventId').delete([authJwt.verifyToken], votesController.delete_a_vote);
 };

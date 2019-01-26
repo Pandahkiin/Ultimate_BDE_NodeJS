@@ -40,6 +40,11 @@ var Model = function(table, model) {
     this.id_Users     = model.id_user;
     this.id_Pictures  = model.id_picture;
   }
+  //Vote object constructor
+  else if(table === "votes") {
+    this.id_Users   = model.id_user;
+    this.id_Events  = model.id_event;
+  }
 };
 
 Model.create = function(table, newRow, result) {
