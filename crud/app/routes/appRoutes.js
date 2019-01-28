@@ -11,6 +11,7 @@ module.exports = function(app) {
   var likesController       = require('../controller/likes.controller');
   var votesController       = require('../controller/votes.controller');
   var categoriesController  = require('../controller/categories.controller');
+  var picturesController    = require('../controller/pictures.controller');
 
   //authentication Routes
   app.route('/api/auth/signin').post(authController.signin);
@@ -33,7 +34,7 @@ module.exports = function(app) {
 
   app.route('/api/events/:eventId')
     .get([authJwt.verifyToken], eventsController.read_an_event)
-    .put([authJwt.verifyToken, authJwt.isBdeMember], eventsController.update_an_event)
+    .put([authJwt.verifyToken, authJwt.isBdeMemberOrCesiEmployee], eventsController.update_an_event)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], eventsController.delete_an_event);
 
 
@@ -47,23 +48,33 @@ module.exports = function(app) {
     .put([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.update_a_goody)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.delete_a_goody);
 
+
   //registers Routes
   app.route('/api/registers').post([authJwt.verifyToken], registersController.create_a_register);
 
   app.route('/api/registers/users/:userId/events/:eventId').delete([authJwt.verifyToken], registersController.delete_a_register);
+
 
   //likes Routes
   app.route('/api/likes').post([authJwt.verifyToken], likesController.create_a_like);
 
   app.route('/api/likes/users/:userId/pictures/:pictureId').delete([authJwt.verifyToken], likesController.delete_a_like);
 
+
   //votes Routes
   app.route('/api/votes').post([authJwt.verifyToken], votesController.create_a_vote);
 
   app.route('/api/votes/users/:userId/events/:eventId').delete([authJwt.verifyToken], votesController.delete_a_vote);
 
+
   //categories Routes
   app.route('/api/categories').post([authJwt.verifyToken, authJwt.isBdeMember], categoriesController.create_a_category);
 
   app.route('/api/categories/:categoryId').delete([authJwt.verifyToken, authJwt.isBdeMember], categoriesController.delete_a_category);
+
+
+  //pictures Routes
+  app.route('/api/pictures/:pictureId')
+    .patch([authJwt.verifyToken, authJwt.isCesiEmployee], picturesController.report_a_picture)
+    .delete([authJwt.verifyToken, authJwt.isBdeMember], picturesController.delete_a_picture);
 };

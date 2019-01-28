@@ -20,22 +20,48 @@ var verifyToken = function (req, res, next) {
       }
     });
   }
-}
+};
 
 var isBdeMember = function(req, res, next) {
   var id = req.userId;
 
   sql.query("SELECT name FROM users INNER JOIN roles ON users.id_role = roles.id WHERE users.id = ?", id, function(err, result) {
-    if(result[0].name == "Membre BDE" || result[0].name == 'Personnel CESI') {
+    if(result[0].name === "Membre BDE") {
       next();
     } else {
-      res.status(403).send({ message : "Requiert le rôle < Membre BDE ou Personnel CESI>", status : "danger" });
+      res.status(403).send({ message : "Requiert le rôle < Membre BDE >", status : "danger" });
+    }
+  });
+};
+
+var isCesiEmployee = function(req, res, next) {
+  var id = req.userId;
+
+  sql.query("SELECT name FROM users INNER JOIN roles ON users.id_role = roles.id WHERE users.id = ?", id, function(err, result) {
+    if(result[0].name === "Personnel CESI") {
+      next();
+    } else {
+      res.status(403).send({ message : "Requiert le rôle < Personnel CESI >", status : "danger" });
+    }
+  });
+};
+
+var isBdeMemberOrCesiEmployee = function(req, res, next) {
+  var id = req.userId;
+
+  sql.query("SELECT name FROM users INNER JOIN roles ON users.id_role = roles.id WHERE users.id = ?", id, function(err, result) {
+    if(result[0].name === "Membre BDE" || result[0].name === "Personnel CESI") {
+      next();
+    } else {
+      res.status(403).send({ message : "Requiert le rôle < Membre BDE ou Personnel CESI >", status : "danger" });
     }
   });
 }
 
 const authJwt = {};
-authJwt.verifyToken = verifyToken;
-authJwt.isBdeMember = isBdeMember;
+authJwt.verifyToken               = verifyToken;
+authJwt.isBdeMember               = isBdeMember;
+authJwt.isCesiEmployee            = isCesiEmployee;
+authJwt.isBdeMemberOrCesiEmployee = isBdeMemberOrCesiEmployee;
 
 module.exports = authJwt;
