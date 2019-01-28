@@ -22,7 +22,7 @@ exports.create_an_event = function(req, res) {
     Model.getRole(req.userId, function(error, result) {
       if(error) {
         error.status(500).send({ error : true, response : null, status : "warning" });
-      } else if(result[0].name === "Membre BDE" && req.body.approved === 'approved') {
+      } else if(req.body.approved === 'approved' && result[0].name === "Membre BDE") {
         newEvent.id_Approbations = 2;
         Model.create(table, newEvent, function(err, event) {
           response.create(res, err, event);
