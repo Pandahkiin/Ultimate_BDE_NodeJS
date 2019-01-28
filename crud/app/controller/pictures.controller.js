@@ -10,7 +10,7 @@ exports.report_a_picture = function(req, res) {
     if(error) {
       response.internalServorError(res);
     } else {
-      link[0].link += ".report";
+      link[0].link += ".reported";
       Model.updateById(table, { link : link[0].link }, req.params.pictureId, function(err, report) {
         response.byId(res, err, report);
       });
