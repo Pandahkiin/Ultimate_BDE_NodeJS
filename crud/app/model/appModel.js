@@ -97,6 +97,24 @@ Model.updateById = function(table, row, id, result) {
   });
 };
 
+Model.updateLastTopEvent = function(result) {
+  sql.query("SELECT id FROM events WHERE id_Approbations = 4", function(error, row) {
+    if(error) {
+      result(err, null);
+    } else if(row.length != 0) {
+      sql.query("UPDATE events SET id_Approbations = 2 WHERE id = ?", row[0].id, function(err, res) {
+        if(err) {
+          result(err, null);
+        } else {
+          result(null, res);
+        }
+      });
+    } else {
+      result(null, row);
+    }
+  });
+};
+
 Model.removeById = function(table, id, result) {
   sql.query("DELETE FROM " + table + " WHERE id = ?", id, function(err, res) {
     if(err) {

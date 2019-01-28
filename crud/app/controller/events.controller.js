@@ -21,12 +21,25 @@ exports.create_an_event = function(req, res) {
   } else {
     Model.getRole(req.userId, function(error, result) {
       if(error) {
-        error.status(500).send({ error : true, response : null, status : "warning" });
+        response.internalServorError(error);
       } else if(req.body.approved === 'approved' && result[0].name === "Membre BDE") {
-        newEvent.id_Approbations = 2;
-        Model.create(table, newEvent, function(err, event) {
-          response.create(res, err, event);
-        });
+        if(!req.body.topEvent) {
+          newEvent.id_Approbations = 2;
+          Model.create(table, newEvent, function(err, event) {
+            response.create(res, err, event);
+          });
+        } else {
+          newEvent.id_Approbations = 4;
+          Model.updateLastTopEvent(function(err, event) {
+            if(err) {
+              response.internalServorError(res);
+            } else {
+              Model.create(table, newEvent, function(err, event) {
+                response.create(res, err, event);
+              });
+            }
+          });
+        }
       } else {
         Model.create(table, newEvent, function(err, event) {
           response.create(res, err, event);
