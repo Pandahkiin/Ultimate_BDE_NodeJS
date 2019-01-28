@@ -3,13 +3,14 @@
 const authJwt = require("./verifyJwtToken");
 
 module.exports = function(app) {
-  var authController      = require('../controller/authentication.controller');
-  var campusesController  = require('../controller/campuses.controller');
-  var eventsController    = require('../controller/events.controller');
-  var goodiesController   = require('../controller/goodies.controller');
-  var registersController = require('../controller/registers.controller');
-  var likesController     = require('../controller/likes.controller');
-  var votesController     = require('../controller/votes.controller');
+  var authController        = require('../controller/authentication.controller');
+  var campusesController    = require('../controller/campuses.controller');
+  var eventsController      = require('../controller/events.controller');
+  var goodiesController     = require('../controller/goodies.controller');
+  var registersController   = require('../controller/registers.controller');
+  var likesController       = require('../controller/likes.controller');
+  var votesController       = require('../controller/votes.controller');
+  var categoriesController  = require('../controller/categories.controller');
 
   //authentication Routes
   app.route('/api/auth/signin').post(authController.signin);
@@ -60,4 +61,9 @@ module.exports = function(app) {
   app.route('/api/votes').post([authJwt.verifyToken], votesController.create_a_vote);
 
   app.route('/api/votes/users/:userId/events/:eventId').delete([authJwt.verifyToken], votesController.delete_a_vote);
+
+  //categories Routes
+  app.route('/api/categories').post([authJwt.verifyToken, authJwt.isBdeMember], categoriesController.create_a_category);
+
+  app.route('./api/categories/:categoryId').delete([authJwt.verifyToken, authJwt.isBdeMember], categoriesController.delete_a_category);
 };

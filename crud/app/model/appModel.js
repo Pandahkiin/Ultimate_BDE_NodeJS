@@ -45,6 +45,10 @@ var Model = function(table, model) {
     this.id_Users   = model.id_user;
     this.id_Events  = model.id_event;
   }
+  //Category object contructor
+  else if(table === "categories") {
+    this.category = model.category;
+  }
 };
 
 Model.create = function(table, newRow, result) {
