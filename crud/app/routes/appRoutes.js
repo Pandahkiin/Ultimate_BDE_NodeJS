@@ -13,10 +13,10 @@ module.exports = function(app) {
   var categoriesController  = require('../controller/categories.controller');
   var picturesController    = require('../controller/pictures.controller');
 
-  //authentication Routes
+  //Authentication Routes
   app.route('/api/auth/signin').post(authController.signin);
 
-  //campuses Routes
+  //Campuses Routes
   app.route('/api/campuses')
     .get([authJwt.verifyToken], campusesController.list_all_campuses)
     .post([authJwt.verifyToken, authJwt.isBdeMember], campusesController.create_a_campus);
@@ -27,7 +27,7 @@ module.exports = function(app) {
     .delete([authJwt.verifyToken, authJwt.isBdeMember], campusesController.delete_a_campus);
 
 
-  //events Routes
+  //Events Routes
   app.route('/api/events')
     .get([authJwt.verifyToken], eventsController.list_all_events)
     .post([authJwt.verifyToken], eventsController.create_an_event);
@@ -38,7 +38,7 @@ module.exports = function(app) {
     .delete([authJwt.verifyToken, authJwt.isBdeMember], eventsController.delete_an_event);
 
 
-  //goodies Routes
+  //Goodies Routes
   app.route('/api/goodies')
     .get([authJwt.verifyToken], goodiesController.list_all_goodies)
     .post([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.create_a_goody);
@@ -49,31 +49,31 @@ module.exports = function(app) {
     .delete([authJwt.verifyToken, authJwt.isBdeMember], goodiesController.delete_a_goody);
 
 
-  //registers Routes
+  //Registers Routes
   app.route('/api/registers').post([authJwt.verifyToken], registersController.create_a_register);
 
   app.route('/api/registers/users/:userId/events/:eventId').delete([authJwt.verifyToken], registersController.delete_a_register);
 
 
-  //likes Routes
+  //Likes Routes
   app.route('/api/likes').post([authJwt.verifyToken], likesController.create_a_like);
 
   app.route('/api/likes/users/:userId/pictures/:pictureId').delete([authJwt.verifyToken], likesController.delete_a_like);
 
 
-  //votes Routes
+  //Votes Routes
   app.route('/api/votes').post([authJwt.verifyToken], votesController.create_a_vote);
 
   app.route('/api/votes/users/:userId/events/:eventId').delete([authJwt.verifyToken], votesController.delete_a_vote);
 
 
-  //categories Routes
+  //Categories Routes
   app.route('/api/categories').post([authJwt.verifyToken, authJwt.isBdeMember], categoriesController.create_a_category);
 
   app.route('/api/categories/:categoryId').delete([authJwt.verifyToken, authJwt.isBdeMember], categoriesController.delete_a_category);
 
 
-  //pictures Routes
+  //Pictures Routes
   app.route('/api/pictures/:pictureId')
     .patch([authJwt.verifyToken, authJwt.isCesiEmployee], picturesController.report_a_picture)
     .delete([authJwt.verifyToken, authJwt.isBdeMember], picturesController.delete_a_picture);
