@@ -36,7 +36,7 @@ exports.create_an_event = function(req, res) {
         response.internalServorError(error);
 
       //Checks whether the event has been approved by a BDE Member
-      } else if(req.body.approved === 'approved' && result[0].name === "Membre BDE") {
+      } else if(req.body.approved === 'approved' && ((result[0].name) ? result[0].name : result.name) === "Membre BDE") {
 
         //Checks whether the event to create is the top event (event of the month)
         if(!req.body.topEvent) {
